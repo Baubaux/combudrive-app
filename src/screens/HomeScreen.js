@@ -1,17 +1,31 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, ScrollView, StyleSheet, Text, View, Image, StatusBar } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import axios from 'axios';
 
-import CleaningProducts from '../components/CleaningProducts/CleaningProducts';
 import Contact from '../components/Contact/Contact';
 import Header from '../components/Header/Header';
 import Pellets from '../components/Products/Pellets';
+// import PelletsCopy from '../components/Products/Pellets copy';
+import PelletsCopy2 from '../components/Products/Pellets copy 2';
+import PelletsCopy3 from '../components/Products/Pellets copy 3';
 import Location from '../components/Location/Location';
-import Services from '../components/Services/Services';
 import Wood from '../components/Products/Wood';
-import ProductItem from '../components/Products/ProductItem';
 
 export default function HomeScreen({navigation}) {
+
+    const [data, setData] = useState({})
+
+    useEffect(() => {
+        // axios.get("https://api.openweathermap.org/data/2.5/onecall?lat=50.4291723&lon=2.8319805&units=metric&lang=fr&exclude=minutely,hourly,alerts&appid=c0c8cbfa762ab92456e2cba411efece5")
+        axios.get("http://localhost:5000/products")
+        .then(res => {
+            setData(res.data)
+            // console.log(res.data.current.temp)
+            console.log(res.data)
+            console.log(res.data[1].title)
+        })
+    }, [])
 
     return (
         <ScrollView 
@@ -20,7 +34,6 @@ export default function HomeScreen({navigation}) {
         >
             <StatusBar backgroundColor= 'white' style='light'/>
             <Header />
-            <ProductItem />
             {/* <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -49,6 +62,8 @@ export default function HomeScreen({navigation}) {
                 </View>
             </ScrollView>
             <Text style={styles.title}><MaterialIcons name="arrow-right" size={24} color="red" />Meilleures ventes</Text>
+            <PelletsCopy />
+            {*/ <PelletsCopy2 data={data}/> /*}
             <Pellets />
             <Text style={styles.title}><MaterialIcons name="arrow-right" size={24} color="blue" />Granulés de bois</Text>
             <Pellets />

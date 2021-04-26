@@ -3,9 +3,11 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import Lastscreen from './src/screens/Last.screen';
+import Testscreen from './src/screens/Test.screen';
+import Homescreen from './src/screens/Home.screen';
 import HomeScreen from './src/screens/HomeScreen';
 import ProductScreen from './src/screens/ProductScreen';
-import ProductCategoryScreen from './src/screens/ProductCategoryScreen';
 
 
 export default function App() {
@@ -14,11 +16,13 @@ export default function App() {
 
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={ HomeScreen } />
-      <Stack.Screen name="Products" component={ ProductScreen } />
-      <Stack.Screen name="Category" component={ ProductCategoryScreen } />
-    </Stack.Navigator>
+      <Stack.Navigator initialRouteName="Last">
+        <Stack.Screen name="Last" component={ Lastscreen } />
+        <Stack.Screen name="Test" component={ Testscreen } />
+        <Stack.Screen name="New Home" component={ Homescreen } />
+        <Stack.Screen name="Home" component={ HomeScreen } />
+        <Stack.Screen name="Product" component={ ProductScreen } />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
