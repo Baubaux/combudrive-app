@@ -8,7 +8,8 @@ import Testscreen from './src/screens/Test.screen';
 import Homescreen from './src/screens/Home.screen';
 import HomeScreen from './src/screens/HomeScreen';
 import ProductScreen from './src/screens/ProductScreen';
-
+import CategoryScreen from './src/screens/Category.screen';
+import ServiceScreen from './src/screens/Service.screen';
 
 export default function App() {
   
@@ -22,6 +23,8 @@ export default function App() {
         <Stack.Screen name="New Home" component={ Homescreen } />
         <Stack.Screen name="Home" component={ HomeScreen } />
         <Stack.Screen name="Product" component={ ProductScreen } />
+        <Stack.Screen name="Category" component={ CategoryScreen } />
+        <Stack.Screen name="Service" component={ ServiceScreen } />
       </Stack.Navigator>
     </NavigationContainer>
   );

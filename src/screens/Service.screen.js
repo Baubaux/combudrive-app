@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, SafeAreaView, StyleSheet, Text, View, Image, StatusBar } from 'react-native';
 
-export default function ProductScreen({route, navigation}) {
+export default function ServiceScreen({route, navigation}) {
     const item = route.params;
     // console.log("l'item: ", item)
     // console.log(item.name)
@@ -48,68 +48,5 @@ export default function ProductScreen({route, navigation}) {
 }
 
 const styles = StyleSheet.create({
-    mainTitle: {
-        borderColor: 'blue',
-        borderWidth: 2,
-    },
-    title: {
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        paddingLeft: 5,
-        paddingRight: 5,
-        fontSize: 40        
-    },
-    underTitle: {
-        textAlign: 'center',
-        textTransform: 'uppercase',
-        fontSize: 20        
-    },
-    price: {
-        fontSize: 25,
-    },
-    cardPrice: {
-        alignItems: 'center',
-        
-    },
-    cardPicture: {
-        alignItems: 'center'
-    },
-    picture: {
-        width: 300,
-        height: 300,
-        resizeMode: 'contain',
-    },
-    cardDescription: {
-        borderColor: 'lightcoral',
-        borderWidth: 2,
-        textAlign: 'center',
-        paddingLeft: 50,
-        paddingRight: 50,
-        paddingTop: 20,
-        paddingBottom: 20
-    },
-    cardTitle: {
-        textTransform: 'uppercase',
-        fontSize: 20,
-        textDecorationLine: 'underline',
-        padding: 10
-    },
-    cardInforamtions: {
-        flex: 1,
-        flexDirection: 'row',
-    },
-    cardUnityProduct: {
-        borderColor: 'yellow',
-        borderWidth: 2,
-        paddingLeft: 10,
-        paddingTop: 5,
-        width: '50%'
-    },
-    cardPaletProduct: {
-        borderColor: 'lightblue',
-        borderWidth: 2,
-        paddingLeft: 10,
-        paddingTop: 5,
-        width: '50%'
-    }
+
 })

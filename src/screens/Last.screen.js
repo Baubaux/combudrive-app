@@ -5,6 +5,7 @@ import Axios from 'axios';
 import Header from '../components/Header/Header';
 import PelletsCopy2 from '../components/Products/Pellets copy 2';
 import Product from '../components/Products/Product';
+import Services from '../components/Services';
 
 
 export default function Lastscreen({navigation}) {
@@ -59,7 +60,8 @@ export default function Lastscreen({navigation}) {
     function renderCategoryProducts(item, index) {
         return (
             <TouchableOpacity
-                style={styles.categoryCard}
+                style={styles.categoryHeader}
+                onPress={() => navigation.navigate('Category', item)}
             >
                 <View
                     style={{
@@ -73,8 +75,9 @@ export default function Lastscreen({navigation}) {
                         paddingBottom: 20,
                         backgroundColor: item.bgColor
                     }}
+                    onPress={() => navigation.navigate('Category', item)}
                 >
-                    <View style={{ height: '40%', justifyContent: 'space-between'}}>
+                    <View style={styles.categoryContent}>
                         <Text style={{textTransform: 'Uppercase'}}>{item.category}</Text>
                         <Text>{item.description}</Text>
                         <Image 
@@ -148,9 +151,8 @@ export default function Lastscreen({navigation}) {
                         keyExtractor={item => item._id.toString()}
                         renderItem={({item, index}) => renderProductItem(item, index)}
                     />
-                    {/* <Product data={data}/> */}
                 </View>
-
+                <Services />
             </ScrollView>
         </SafeAreaView>
     )
@@ -159,6 +161,22 @@ export default function Lastscreen({navigation}) {
 }
 
 const styles = StyleSheet.create({
+    // category
+    categoryHeader: {
+        height: 150,
+        width: 160,
+        justifyContent: 'center',
+        marginHorizontal: 1,
+        marginTop: 20,
+        marginBottom: 20,
+        marginLeft: 5,
+        marginRight: 5
+    },
+    categoryContent: {
+        height: '40%', 
+        justifyContent: 'space-between'
+    },
+    // products
     productCard: {
         flex: 1,
         justifyContent: 'flex-end',
@@ -172,32 +190,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row', 
         backgroundColor: 'darkgray'
     },
-    card: {
-        alignItems: "center",
-        flexDirection: "row",
-        backgroundColor: "lightcoral",
-        marginHorizontal: 15,
-        borderRadius: 25,
-        paddingVertical: 5,
-        paddingHorizontal: 15
-    },
-    cardTitle: {
-        fontWeight: "bold",
-        fontSize: 18,
-        paddingLeft: 10
-    },
-    categoryCard: {
-        height: 150,
-        width: 160,
-        justifyContent: 'center',
-        marginHorizontal: 1,
-        marginTop: 20,
-        marginBottom: 20,
-        marginLeft: 5,
-        marginRight: 5
-    },
     leftCardContent:{
-
+        backgroundColor: 'black'
     },
     rightCardContent: {
         width: 300,
@@ -212,6 +206,5 @@ const styles = StyleSheet.create({
         padding: 5,
         fontSize: 25,
         textTransform: 'uppercase',
-        color: 'white',
     },
 });
