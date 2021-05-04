@@ -1,11 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import { Button, FlatList, ScrollView, StyleSheet, Text, View, Image, StatusBar, TouchableOpacity, SafeAreaView } from 'react-native';
+import { Button, FlatList, Dimensions, ScrollView, StyleSheet, Text, View, Image, StatusBar, TouchableOpacity, SafeAreaView } from 'react-native';
+import AppLoading from 'expo-app-loading';
 import Axios from 'axios';
 
 import Header from '../components/Header/Header';
-import PelletsCopy2 from '../components/Products/Pellets copy 2';
-import Product from '../components/Products/Product';
 import Services from '../components/Services';
+import App from '../../App';
+
+
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 
 
 export default function Lastscreen({navigation}) {
@@ -78,7 +82,7 @@ export default function Lastscreen({navigation}) {
                     onPress={() => navigation.navigate('Category', item)}
                 >
                     <View style={styles.categoryContent}>
-                        <Text style={{textTransform: 'Uppercase'}}>{item.category}</Text>
+                        <Text style={{textTransform: 'uppercase'}}>{item.category}</Text>
                         <Text>{item.description}</Text>
                         <Image 
                             source={item.picture}
@@ -112,14 +116,16 @@ export default function Lastscreen({navigation}) {
                         </View>
                         <View style={styles.rightCardContent}>
                             <Text style={styles.title}>{item.name}</Text>
-                            <Text>{item.quality}</Text>
-                            <Text>{item.weight}</Text>
-                            <Text>{item.unit_price}</Text>
-                            <Button 
-                                title="Voir le produit"
-                                color= '#FFDF4A'
-                                onPress={() => navigation.navigate('Product', item)}
-                            />
+                            <Text style={styles.cardText}>{item.introduction}</Text>
+                            <Text style={styles.cardText}>{item.conditionning} de {item.weight}</Text>
+                            <Text style={{color: '#F44C4B', fontSize: 20, fontWeight: 'bold'}}>{item.unit_price}</Text>
+                            <View style={styles.button}>
+                                <Button 
+                                    title= "Voir le produit"
+                                    color= '#FEE845'
+                                    onPress={() => navigation.navigate('Product', item)}
+                                />
+                            </View>
                         </View>
                     </View>
                 </View>
@@ -129,39 +135,45 @@ export default function Lastscreen({navigation}) {
 
     const [products, setProducts] = useState([])
 
-    return (
-        <SafeAreaView>
-            <ScrollView>
-                <Header />
-                {/* Categories */}
+    if(Object.keys(data).length !==0){
+        return (
+            <SafeAreaView
+                height={windowHeight}
+            >
                 <View>
-                    <FlatList 
-                        horizontal
-                        showsHorizontalScrollIndicator={false}
-                        data={categoryProducts}
-                        keyExtractor={item => item.id.toString()}
-                        renderItem={({item, index}) => renderCategoryProducts(item, index)}
-                    />
+                    <Header />
+                    {/* Categories */}
+                    <View>
+                        <FlatList 
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            data={categoryProducts}
+                            keyExtractor={item => item.id.toString()}
+                            renderItem={({item, index}) => renderCategoryProducts(item, index)}
+                        />
+                    </View>
+                    {/* Products */}
+                    <View>
+                        <FlatList 
+                            vertical
+                            data={data}
+                            keyExtractor={item => item._id.toString()}
+                            renderItem={({item, index}) => renderProductItem(item, index)}
+                        />
+                    </View>
+                    <Services />
                 </View>
-                {/* Products */}
-                <View>
-                    <FlatList 
-                        vertical
-                        data={data}
-                        keyExtractor={item => item._id.toString()}
-                        renderItem={({item, index}) => renderProductItem(item, index)}
-                    />
-                </View>
-                <Services />
-            </ScrollView>
-        </SafeAreaView>
-    )
-
-
+            </SafeAreaView>
+        );
+    } else {
+        return (
+            <AppLoading />
+        )
+    }
 }
 
 const styles = StyleSheet.create({
-    // category
+    // Category
     categoryHeader: {
         height: 150,
         width: 160,
@@ -176,35 +188,54 @@ const styles = StyleSheet.create({
         height: '40%', 
         justifyContent: 'space-between'
     },
-    // products
+    // Product Card
     productCard: {
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         margin: 10,
         padding: 10,
         borderRadius: 10,
-        backgroundColor: 'lightgray'
+        backgroundColor: 'white',
+        shadowColor: 'lightgray',
+        shadowOpacity: 100,
+        shadowRadius: 10,
     },
     productCardContent: {
-        flex: 2, 
-        flexDirection: 'row', 
-        backgroundColor: 'darkgray'
+        flexDirection: 'row'
     },
     leftCardContent:{
-        backgroundColor: 'black'
+        justifyContent: 'center',
+        borderRadius: 2,
+        shadowColor: 'gray',
+        shadowOpacity: 100,
+        shadowRadius: 10,
     },
     rightCardContent: {
-        width: 300,
-        padding: 5
+        width: 550,
+        padding: 20,
+        alignItems: 'center',
     },
     cardPicture: {
-        width: 150,
-        height: 150,
+        width: 200,
+        height: 200,
         resizeMode: 'contain',
     },
     title: {
         padding: 5,
-        fontSize: 25,
-        textTransform: 'uppercase',
+        fontSize: 30,
+        textTransform: 'uppercase'
     },
+    cardText: {
+        paddingTop: 10,
+        paddingBottom: 5,
+        fontSize: 17,
+        color: '#4E4C4C',
+        fontStyle: 'italic'
+    },
+    button: {
+        alignItems: 'center',
+        width: 200,
+        margin: 15,
+        marginTop: 10,
+    }
 });

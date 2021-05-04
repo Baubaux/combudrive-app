@@ -1,13 +1,17 @@
 import React from 'react';
-import { ScrollView, SafeAreaView, StyleSheet, Text, View, Image, StatusBar } from 'react-native';
+import { ScrollView, SafeAreaView, Dimensions, StyleSheet, Text, View, Image, StatusBar } from 'react-native';
 
 export default function ProductScreen({route, navigation}) {
     const item = route.params;
     // console.log("l'item: ", item)
     // console.log(item.name)
 
+    const windowHeight = Dimensions.get('window').height
+
     return (
-        <SafeAreaView>
+        <SafeAreaView
+            height={windowHeight}
+        >
             <View style={styles.cardPicture}>
                 <Image
                     style={styles.picture}
@@ -69,7 +73,6 @@ const styles = StyleSheet.create({
     },
     cardPrice: {
         alignItems: 'center',
-        
     },
     cardPicture: {
         alignItems: 'center'

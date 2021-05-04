@@ -20,8 +20,8 @@ export default function Services({ navigation }) {
 
     function renderServiceItem(item, index) {
         return (
-            <SafeAreaView>
-                <TouchableOpacity>
+            <View style={{backgroundColor: 'lightblue'}}>
+                <View>
                     <View style={styles.card}>
                         <Text>{item.name}</Text>
                     </View>
@@ -30,8 +30,8 @@ export default function Services({ navigation }) {
                         color='#FFDF4A'
                         onPress={() => navigation.navigate('Service', item)}
                     />
-                </TouchableOpacity>
-            </SafeAreaView>
+                </View>
+            </View>
         )
     }
 
